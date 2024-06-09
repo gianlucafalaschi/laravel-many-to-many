@@ -9,7 +9,7 @@ use Illuminate\Support\Str;   // per usare gli l'helpers (si occupa di manipolar
 use Illuminate\Validation\Rule; // per usare la classe rule in update nella validazione 
 use Illuminate\Support\Facades\Storage;  // per usare la classe Storage nello store ( per l'upload dei file)
 use App\Models\Type;
-
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -135,6 +135,7 @@ class ProjectController extends Controller
        ];
        
        // dd($data);
+       
 
        return view('admin.projects.show', $data);
        // return view('admin.projects.show', compact('project'));
