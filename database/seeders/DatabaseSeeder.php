@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ProjectsTableSeeder;
 use Database\Seeders\TypesTableSeeder;
+use Database\Seeders\TechnologiesTableSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProjectsTableSeeder::class,
             TypesTableSeeder::class,
+            TechnologiesTableSeeder::class
         ]);
 
 
