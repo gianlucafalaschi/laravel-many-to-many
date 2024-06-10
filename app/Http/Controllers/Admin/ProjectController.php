@@ -67,7 +67,8 @@ class ProjectController extends Controller
             'client_name' => 'required|min:5|max:250',
             'summary' => 'nullable|min:10|max:500|',
             'cover_image' => 'nullable|image|max:512',
-            'type_id' => 'nullable|exists:types,id' 
+            'type_id' => 'nullable|exists:types,id', 
+            'technologies' => 'nullable|exists:technologies,id'
         ],
         
         [
@@ -86,7 +87,7 @@ class ProjectController extends Controller
     );
 
         $formData = $request->all();
-        //dd($formData);
+        // dd($formData);
 
         // solo se l'utente ha caricato la cover image
         if($request->hasFile('cover_image')) {
@@ -114,6 +115,12 @@ class ProjectController extends Controller
         $newProject->slug = Str::slug($newProject->name , '-');  // se uso $newProject->name prima del fill avrei valore vuoto, dovrei usare invece $formData
         $newProject->save();  // laravel crea una nuova riga del database
         
+        // attaccare le technologies scelte dall'utente al project creato
+        if($request->has('technologies')) {
+            $newProject->technologies()->attach($formData['technologies']);
+        }
+
+
         // messaggio flash creazione progetto
         session()->flash('success', 'Project created!'); 
          // una volta creata una nuova riga del database vengo reindrizzato alla pagina del singolo prodotto creato. Uso ilredirect allo show e non il view allo show per tenere i compiti divisi.
