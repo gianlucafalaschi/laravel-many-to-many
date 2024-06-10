@@ -34,6 +34,18 @@
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
+    <div class="mb-3">
+        <h6>Technologies</h6>
+        @foreach ($technologies as $technology)
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology-{{ $technology->id }}">
+            <label class="form-check-label" for="technology-{{ $technology->id }}">
+              {{ $technology->name}}
+            </label>
+        </div>
+        @endforeach
+    </div>
+
 
     <div class="mb-3">
       <label for="client_name" class="form-label">Client name</label>

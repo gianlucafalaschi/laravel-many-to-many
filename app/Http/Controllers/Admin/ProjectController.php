@@ -40,9 +40,11 @@ class ProjectController extends Controller
     public function create()
     {   
         $types = Type::all();
+        $technologies = Technology::all();
         
         $data = [
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ];
 
         
