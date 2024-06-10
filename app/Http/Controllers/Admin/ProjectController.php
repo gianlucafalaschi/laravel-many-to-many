@@ -162,16 +162,17 @@ class ProjectController extends Controller
         //dd($project);
 
         $types = Type::all();
-        
+        $technologies = Technology::all();
         
 
         $data = [
             'project'=> $project,
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
 
         ];
         
-
+    
         return view('admin.projects.edit', $data);
     }
 
@@ -200,7 +201,8 @@ class ProjectController extends Controller
             'client_name' => 'required|min:5|max:250',
             'summary' => 'nullable|min:10|max:500|',
             'cover_image' => 'nullable|image|max:512',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id' // qui nullable non e' necessario
         ],
         // custom error message
         [
@@ -238,6 +240,11 @@ class ProjectController extends Controller
         $project->slug = Str::slug($formData['name'] , '-'); // se usassi $project invece di formData farei lo slug sul valore vecchio
         $project->update($formData);
 
+        if($request->has('technologies')) {
+            $project->technologies()->sync($formData['technologies']);
+        } else {
+            $project->technologies()->detach(); // se l'utente deseleziona tutte le checkbox faccio detach altrimenti mi rimarrebbero le selezioni vecchie
+        }
 
         // messaggio flash creazione progetto
         session()->flash('success', 'Project modified!'); 
