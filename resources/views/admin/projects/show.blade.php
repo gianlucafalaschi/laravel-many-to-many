@@ -23,6 +23,18 @@
     </div>
     
     <div>
+        {{-- technologies è il nome della funzione nel model project per prendere le technologie dal project --}}
+        <strong>Technologies:</strong>
+        @if (count($project->technologies) > 0)
+            @foreach ($project->technologies as $technology)
+                {{ $technology->name }} @if (!$loop->last), @endif  {{-- mette la virgola solo se non è nell'ultima iterazione --}}
+            @endforeach
+        @else
+            No Technology yet
+        @endif  
+    </div>
+    
+    <div>
         <strong>Client name:</strong></strong> {{ $project->client_name }}
     </div>
     
