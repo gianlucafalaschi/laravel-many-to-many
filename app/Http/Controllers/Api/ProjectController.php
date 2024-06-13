@@ -21,4 +21,18 @@ class ProjectController extends Controller
             'results' => $projects
         ]);
     }
+
+    /* $slug lo passa Laravel in automatico. Riprende la parte variabile { slug } in api.php nella rotta api 
+    per il singolo progetto  */
+    public function show($slug) {        
+        $project = Project::where('slug', '=', $slug)->with('type','technologies')->first();
+        
+        $data = [
+            'success' => true,
+            'project' => $project
+        ];
+
+        return response()->json($data);
+
+    }
 }

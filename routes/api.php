@@ -18,5 +18,7 @@ use App\Http\Controllers\Api\ProjectController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+// rotta api per tutti i progetti
 Route::get('/projects', [ProjectController::class, 'index']);
+// rotta api per singolo progetto
+Route::get('/projects/{slug}', [ProjectController::class, 'show']);
