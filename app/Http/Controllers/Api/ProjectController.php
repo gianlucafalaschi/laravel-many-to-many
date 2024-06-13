@@ -19,7 +19,7 @@ class ProjectController extends Controller
         return response()->json([
             'success' => true,
             'results' => $projects
-        ]);
+        ]);   
     }
 
     /* $slug lo passa Laravel in automatico. Riprende la parte variabile { slug } in api.php nella rotta api 
@@ -27,10 +27,19 @@ class ProjectController extends Controller
     public function show($slug) {        
         $project = Project::where('slug', '=', $slug)->with('type','technologies')->first();
         
-        $data = [
-            'success' => true,
-            'project' => $project
-        ];
+        // qui è diverso rispetto sopra perchè l'utente potrebbe scrivere un url sbagliato, quindi dobbiamo gestirlo
+        if($project) {
+            $data = [
+                'success' => true,
+                'project' => $project
+            ];
+        } else {
+            $data = [
+                'success' => false,
+                'error' => 'No project found with this slug'
+            ];
+        }
+        
 
         return response()->json($data);
 
